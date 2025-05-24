@@ -16,6 +16,20 @@ export const Browser = ({}: Types.BrowserTypes) => {
     location.pathname.replace(/^\/files\/?/, "")
   );
 
+  useEffect(() => {
+    const baseUrl = "http://127.0.0.1:8080/files";
+    const params = subPath ? { path: subPath } : {};
+    axios
+      .get(baseUrl, { params })
+      .then((response) => {
+        setFiles(response.data);
+      })
+
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [subPath]);
+
   // Folders first.
   const sortedFiles = files.sort((a, b) => {
     if (a.folder && !b.folder) return -1;
@@ -35,20 +49,6 @@ export const Browser = ({}: Types.BrowserTypes) => {
       window.location.href = `http://192.168.50.163:8080${file.path}`;
     }
   };
-
-  useEffect(() => {
-    const baseUrl = "http://192.168.50.163:8080/files";
-    const params = subPath ? { path: subPath } : {};
-    axios
-      .get(baseUrl, { params })
-      .then((response) => {
-        setFiles(response.data);
-      })
-
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, [subPath]);
 
   return (
     <>

@@ -8,9 +8,11 @@ import * as Types from "./ThemeContext.types";
 import { themes } from "../../shared/themes";
 import * as Shared from "../../shared/Shared.types";
 
-const ThemeContext = createContext<Types.ThemeContextTypes | undefined>(
-  undefined
-);
+const ThemeContext = createContext<Types.ThemeContextTypes>({
+  theme: "dark",
+  setTheme: () => {},
+  availableThemes: ["dark"],
+});
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = React.useState<Shared.Theme>("dark");
@@ -24,7 +26,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    // Apply the theme variables to the root element
     const themeVariables = themes[theme];
     const root = document.documentElement;
 

@@ -30,6 +30,7 @@ export const Settings = () => {
         <div className="folders mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-4">
           {availableThemes.map((theme: Shared.Theme, index: number) => (
             <div
+              key={theme}
               onClick={() => handleThemeSelect(theme)}
               className={`rounded-lg ${
                 currentTheme === theme
